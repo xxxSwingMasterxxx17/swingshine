@@ -46383,10 +46383,22 @@ a.u-link.u-text-hover-color-var:hover {
 }
 
 .u-header .u-nav-1 {
-  font-weight: 600;
+  display: flex;
+  align-items: center;
+  font-weight: 400;
   font-size: 0.875rem;
   text-transform: uppercase;
   letter-spacing: normal;
+}
+
+#sec-3c14 .u-nav-container .u-nav-link.active:not([aria-current="page"]) {
+  color: #111111 !important;
+  border-color: transparent !important;
+}
+
+#sec-3c14 .u-nav-container .u-nav-link[aria-current="page"] {
+  color: #e7ab0d !important;
+  border-color: #e7ab0d !important;
 }
 
 .u-header .u-nav-2 {
@@ -46409,6 +46421,31 @@ a.u-link.u-text-hover-color-var:hover {
 
 .u-header .u-icon-2 {
   height: 100%;
+}
+@media (min-width: 1200px) {
+  .u-header .u-sheet-1 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    column-gap: 64px;
+  }
+
+  .u-header .u-image-1,
+  .u-header .u-menu-1 {
+    margin: 0;
+  }
+
+  .u-header .u-menu-1 {
+    display: block;
+    width: 595px;
+    flex: 0 0 595px;
+  }
+
+  .u-header .u-nav-container,
+  .u-header .u-nav-1 {
+    width: 100%;
+  }
 }
 @media (max-width: 1199px) {
   .u-header .u-sheet-1 {

@@ -1,0 +1,342 @@
+:root {
+  --team-gold: #e7ab0d;
+  --team-gold-light: #f5d77f;
+  --team-ink: #332e29;
+  --team-cream: #fffaf0;
+  --team-white: #ffffff;
+}
+
+.team-page {
+  color: var(--team-ink);
+  background: var(--team-white);
+}
+
+.team-shell {
+  width: min(1140px, calc(100% - 48px));
+  margin: 0 auto;
+}
+
+.team-hero {
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(110deg, rgba(51, 46, 41, 0.96), rgba(51, 46, 41, 0.78)),
+    url("images/fg5.jpg") center 43% / cover no-repeat;
+  color: var(--team-white);
+}
+
+.team-hero::after {
+  position: absolute;
+  width: 280px;
+  height: 280px;
+  right: -90px;
+  bottom: -170px;
+  border: 42px solid rgba(231, 171, 13, 0.55);
+  border-radius: 50%;
+  content: "";
+}
+
+.team-hero-inner {
+  position: relative;
+  z-index: 1;
+  padding-top: 92px;
+  padding-bottom: 98px;
+}
+
+.team-kicker,
+.team-role {
+  margin: 0 0 12px;
+  color: var(--team-gold);
+  font-family: Montserrat, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.team-hero h1 {
+  max-width: 760px;
+  margin: 0;
+  color: var(--team-white);
+  font-family: Montserrat, sans-serif;
+  font-size: clamp(2.8rem, 6vw, 5.5rem);
+  line-height: 1;
+}
+
+.team-intro {
+  max-width: 690px;
+  margin: 26px 0 0;
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  line-height: 1.65;
+}
+
+.team-members {
+  padding: 92px 0 112px;
+}
+
+.team-section-title,
+.team-vision h2 {
+  margin: 0;
+  color: var(--team-ink);
+  font-family: Montserrat, sans-serif;
+  font-size: clamp(2.2rem, 4vw, 3.4rem);
+  line-height: 1.1;
+}
+
+.team-section-title {
+  margin-bottom: 54px;
+  text-align: center;
+}
+
+.team-member {
+  display: grid;
+  grid-template-columns: minmax(300px, 0.85fr) minmax(0, 1.35fr);
+  gap: 64px;
+  align-items: center;
+}
+
+.team-member + .team-member {
+  margin-top: 100px;
+}
+
+.team-member-reverse .team-photo-wrap {
+  order: 2;
+}
+
+.team-member-reverse .team-member-copy {
+  order: 1;
+}
+
+.team-photo-wrap {
+  position: relative;
+  isolation: isolate;
+  min-width: 0;
+}
+
+.team-photo-wrap::before {
+  position: absolute;
+  inset: 24px -18px -24px 18px;
+  z-index: -1;
+  border-radius: 26px;
+  background: var(--team-gold);
+  content: "";
+}
+
+.team-member-reverse .team-photo-wrap::before {
+  inset: 24px 18px -24px -18px;
+  background: var(--team-ink);
+}
+
+.team-photo {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  border-radius: 26px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.team-member-copy {
+  min-width: 0;
+}
+
+.team-member-reverse .team-photo {
+  object-position: 48% center;
+}
+
+.team-member-copy h3 {
+  margin: 0 0 22px;
+  color: var(--team-ink);
+  font-family: Montserrat, sans-serif;
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  line-height: 1.1;
+}
+
+.team-member-copy p:not(.team-role) {
+  margin: 0;
+  font-size: 1.06rem;
+  line-height: 1.85;
+}
+
+.team-member-copy p + p {
+  margin-top: 18px;
+}
+
+.team-vision {
+  padding: 96px 0 104px;
+  background: var(--team-cream);
+}
+
+.team-vision > .team-shell > .team-kicker,
+.team-vision h2 {
+  text-align: center;
+}
+
+.team-values-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 26px;
+  margin-top: 54px;
+}
+
+.team-value-card {
+  padding: 42px;
+  border-top: 7px solid var(--team-gold);
+  border-radius: 22px;
+  background: var(--team-white);
+  box-shadow: 0 18px 50px rgba(51, 46, 41, 0.1);
+}
+
+.team-value-card-dark {
+  color: var(--team-white);
+  background: var(--team-ink);
+}
+
+.team-value-card h3 {
+  margin: 0 0 18px;
+  color: inherit;
+  font-family: Montserrat, sans-serif;
+  font-size: 1.55rem;
+  line-height: 1.25;
+}
+
+.team-value-card p {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+.team-cta {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  margin-top: 54px;
+}
+
+.team-cta p {
+  margin: 0;
+  font-family: Montserrat, sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.team-cta a {
+  display: inline-block;
+  padding: 14px 26px;
+  border: 2px solid var(--team-gold);
+  border-radius: 999px;
+  color: var(--team-ink);
+  font-weight: 700;
+  text-decoration: none;
+  transition: background-color 160ms ease, color 160ms ease, transform 160ms ease;
+}
+
+.team-cta a:hover,
+.team-cta a:focus-visible {
+  color: var(--team-white);
+  background: var(--team-gold);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 991px) {
+  .team-hero-inner {
+    padding-top: 76px;
+    padding-bottom: 82px;
+  }
+
+  .team-members {
+    padding-top: 76px;
+    padding-bottom: 88px;
+  }
+
+  .team-member {
+    grid-template-columns: minmax(240px, 0.8fr) minmax(0, 1.2fr);
+    gap: 44px;
+  }
+
+  .team-member + .team-member {
+    margin-top: 84px;
+  }
+
+  .team-member-copy p:not(.team-role) {
+    font-size: 1rem;
+    line-height: 1.72;
+  }
+
+  .team-value-card {
+    padding: 34px;
+  }
+}
+
+@media (max-width: 767px) {
+  .team-shell {
+    width: min(100% - 32px, 560px);
+  }
+
+  .team-hero-inner {
+    padding-top: 62px;
+    padding-bottom: 68px;
+  }
+
+  .team-members,
+  .team-vision {
+    padding-top: 66px;
+    padding-bottom: 72px;
+  }
+
+  .team-section-title {
+    margin-bottom: 42px;
+  }
+
+  .team-member {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .team-member-reverse .team-photo-wrap,
+  .team-member-reverse .team-member-copy {
+    order: initial;
+  }
+
+  .team-photo-wrap {
+    width: min(100% - 20px, 430px);
+    margin: 0 auto;
+  }
+
+  .team-values-grid {
+    grid-template-columns: 1fr;
+    margin-top: 40px;
+  }
+
+  .team-cta {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+@media (max-width: 575px) {
+  .team-hero::after {
+    width: 190px;
+    height: 190px;
+    right: -85px;
+    bottom: -120px;
+    border-width: 30px;
+  }
+
+  .team-value-card {
+    padding: 28px 24px;
+  }
+
+  .team-member + .team-member {
+    margin-top: 76px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .team-cta a {
+    transition: none;
+  }
+}
