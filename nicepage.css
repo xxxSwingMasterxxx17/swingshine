@@ -46386,7 +46386,7 @@ a.u-link.u-text-hover-color-var:hover {
   display: flex;
   align-items: center;
   font-weight: 400;
-  font-size: 0.875rem;
+  font-size: 1.041667rem;
   text-transform: uppercase;
   letter-spacing: normal;
 }
@@ -46438,8 +46438,8 @@ a.u-link.u-text-hover-color-var:hover {
 
   .u-header .u-menu-1 {
     display: block;
-    width: 595px;
-    flex: 0 0 595px;
+    width: 780px;
+    flex: 0 0 780px;
   }
 
   .u-header .u-nav-container,

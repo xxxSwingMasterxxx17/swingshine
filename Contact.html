@@ -11,7 +11,7 @@
     <link rel="preload" as="image" href="images/summer-class-2026.png">
     <link rel="stylesheet" href="nicepage.css?v=20260818-1" media="screen">
     <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
-<link rel="stylesheet" href="Contact.css?v=20260818-5" media="screen">
+<link rel="stylesheet" href="Contact.css?v=20260818-8" media="screen">
     <script class="u-script" type="text/javascript" src="jquery.js" defer=""></script>
     <script class="u-script" type="text/javascript" src="nicepage.js" defer=""></script>
     <meta name="generator" content="Nicepage 7.12.3, nicepage.com">
@@ -86,8 +86,31 @@ c0-7.4,3.4-18.8,18.8-18.8h13.8v15.4H75.5z"></path></svg></span>
       </div></header>
     <section class="agenda-section u-clearfix u-custom-color-1" id="agenda">
       <div class="u-clearfix u-sheet agenda-sheet">
-        <h2 class="u-align-center">Prochains rendez-vous</h2>
-        <img src="images/summer-class-2026.png" alt="Summer Class SwingShine à La Rochelle, les 27 août, 2 et 7 septembre à 19 h 30" width="1080" height="1350" fetchpriority="high">
+        <h2 class="u-align-center" id="agenda-title">Prochains rendez-vous</h2>
+        <div class="agenda-carousel" data-agenda-carousel aria-labelledby="agenda-title" aria-roledescription="carrousel">
+          <div class="agenda-carousel__stage">
+            <button class="agenda-carousel__navigation agenda-carousel__navigation--previous" type="button" aria-label="Afficher l'affiche précédente" aria-controls="agenda-carousel-track" disabled>
+              <span aria-hidden="true"></span>
+            </button>
+            <div class="agenda-carousel__viewport" tabindex="0" aria-label="Affiches des prochains rendez-vous. Utilisez les flèches gauche et droite ou faites glisser pour changer d'affiche.">
+              <div class="agenda-carousel__track" id="agenda-carousel-track">
+                <figure class="agenda-carousel__slide" aria-label="1 sur 2">
+                  <img src="images/summer-class-2026.png" alt="Summer Class SwingShine à La Rochelle, les 27 août, 2 et 7 septembre à 19 h 30" width="1080" height="1350" fetchpriority="high" draggable="false">
+                </figure>
+                <figure class="agenda-carousel__slide" aria-label="2 sur 2" aria-hidden="true">
+                  <img src="images/annonce-cours-2026-27.png?v=20260818-2" alt="Cours SwingShine 2026-2027 : Lindy hop, trois niveaux, solo jazz ou Charleston, deux niveaux. Rentrée le 14 septembre" width="1080" height="1350" loading="lazy" draggable="false">
+                </figure>
+              </div>
+            </div>
+            <button class="agenda-carousel__navigation agenda-carousel__navigation--next" type="button" aria-label="Afficher l'affiche suivante" aria-controls="agenda-carousel-track">
+              <span aria-hidden="true"></span>
+            </button>
+          </div>
+          <div class="agenda-carousel__indicators" role="group" aria-label="Choisir une affiche">
+            <button class="agenda-carousel__indicator" type="button" aria-label="Afficher la première affiche" aria-current="true"></button>
+            <button class="agenda-carousel__indicator" type="button" aria-label="Afficher la deuxième affiche" aria-current="false"></button>
+          </div>
+        </div>
       </div>
     </section>
     <section class="skrollable skrollable-between u-align-center u-clearfix u-container-align-center u-custom-color-2 u-section-2" src="" id="sec-76e2">
@@ -299,5 +322,142 @@ c0-7.4,3.4-18.8,18.8-18.8h13.8v15.4H75.5z"></path></svg></span>
     var AUTOHIDE = Boolean(0);
   </script>
   <script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
+  <script>
+    (function () {
+      var carousel = document.querySelector('[data-agenda-carousel]');
+      if (!carousel) return;
+
+      var viewport = carousel.querySelector('.agenda-carousel__viewport');
+      var track = carousel.querySelector('.agenda-carousel__track');
+      var slides = Array.prototype.slice.call(carousel.querySelectorAll('.agenda-carousel__slide'));
+      var indicators = Array.prototype.slice.call(carousel.querySelectorAll('.agenda-carousel__indicator'));
+      var previousButton = carousel.querySelector('.agenda-carousel__navigation--previous');
+      var nextButton = carousel.querySelector('.agenda-carousel__navigation--next');
+      var currentIndex = 0;
+      var intervalId;
+      var dragStartX = null;
+      var dragDistance = 0;
+      var activePointerId = null;
+
+      function showSlide(index, wrap) {
+        currentIndex = wrap
+          ? (index + slides.length) % slides.length
+          : Math.max(0, Math.min(index, slides.length - 1));
+        track.style.transform = 'translate3d(-' + (currentIndex * 100) + '%, 0, 0)';
+
+        slides.forEach(function (slide, slideIndex) {
+          slide.setAttribute('aria-hidden', slideIndex === currentIndex ? 'false' : 'true');
+        });
+        indicators.forEach(function (indicator, indicatorIndex) {
+          indicator.setAttribute('aria-current', indicatorIndex === currentIndex ? 'true' : 'false');
+        });
+        previousButton.disabled = currentIndex === 0;
+        nextButton.disabled = currentIndex === slides.length - 1;
+      }
+
+      function stopAutoplay() {
+        window.clearInterval(intervalId);
+      }
+
+      function startAutoplay() {
+        stopAutoplay();
+        intervalId = window.setInterval(function () {
+          showSlide(currentIndex + 1, true);
+        }, 5000);
+      }
+
+      function navigateTo(index) {
+        showSlide(index, false);
+        startAutoplay();
+      }
+
+      indicators.forEach(function (indicator, indicatorIndex) {
+        indicator.addEventListener('click', function () {
+          navigateTo(indicatorIndex);
+        });
+      });
+
+      previousButton.addEventListener('click', function () {
+        navigateTo(currentIndex - 1);
+      });
+
+      nextButton.addEventListener('click', function () {
+        navigateTo(currentIndex + 1);
+      });
+
+      viewport.addEventListener('keydown', function (event) {
+        if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+        if (event.target.closest('.agenda-carousel__navigation')) return;
+        event.preventDefault();
+        navigateTo(currentIndex + (event.key === 'ArrowRight' ? 1 : -1));
+      });
+
+      viewport.addEventListener('pointerdown', function (event) {
+        if (event.target.closest('.agenda-carousel__navigation')) return;
+        if (event.pointerType === 'mouse' && event.button !== 0) return;
+        event.preventDefault();
+        dragStartX = event.clientX;
+        dragDistance = 0;
+        activePointerId = event.pointerId;
+        viewport.setPointerCapture(activePointerId);
+        viewport.classList.add('is-dragging');
+        track.classList.add('is-dragging');
+        stopAutoplay();
+      });
+
+      viewport.addEventListener('pointermove', function (event) {
+        if (dragStartX === null || event.pointerId !== activePointerId) return;
+        dragDistance = event.clientX - dragStartX;
+        var displayedDistance = dragDistance;
+        var isPastFirstSlide = currentIndex === 0 && dragDistance > 0;
+        var isPastLastSlide = currentIndex === slides.length - 1 && dragDistance < 0;
+        if (isPastFirstSlide || isPastLastSlide) displayedDistance *= 0.2;
+        track.style.transform = 'translate3d(calc(-' + (currentIndex * 100) + '% + ' + displayedDistance + 'px), 0, 0)';
+      });
+
+      function finishDrag(event, cancelled) {
+        if (dragStartX === null || event.pointerId !== activePointerId) return;
+        if (viewport.hasPointerCapture(activePointerId)) {
+          viewport.releasePointerCapture(activePointerId);
+        }
+
+        viewport.classList.remove('is-dragging');
+        track.classList.remove('is-dragging');
+        void track.offsetWidth;
+
+        var targetIndex = currentIndex;
+        if (!cancelled && Math.abs(dragDistance) > 40) {
+          targetIndex += dragDistance < 0 ? 1 : -1;
+        }
+
+        dragStartX = null;
+        dragDistance = 0;
+        activePointerId = null;
+        showSlide(targetIndex, false);
+        startAutoplay();
+      }
+
+      viewport.addEventListener('pointerup', function (event) {
+        finishDrag(event, false);
+      });
+
+      viewport.addEventListener('pointercancel', function (event) {
+        finishDrag(event, true);
+      });
+
+      carousel.addEventListener('mouseenter', stopAutoplay);
+      carousel.addEventListener('mouseleave', startAutoplay);
+      carousel.addEventListener('focusin', stopAutoplay);
+      carousel.addEventListener('focusout', function (event) {
+        if (!carousel.contains(event.relatedTarget)) startAutoplay();
+      });
+      document.addEventListener('visibilitychange', function () {
+        if (document.hidden) stopAutoplay();
+        else startAutoplay();
+      });
+
+      startAutoplay();
+    }());
+  </script>
   
 </body></html>
