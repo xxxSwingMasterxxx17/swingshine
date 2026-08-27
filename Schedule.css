@@ -11,6 +11,8 @@
 .u-section-1 .u-image-1 {
   width: 949px;
   height: 499px;
+  object-fit: cover;
+  object-position: center;
   margin: 17px auto 0;
 }
 
@@ -74,7 +76,8 @@
 
   .u-section-1 .u-image-1 {
     width: 540px;
-    height: 284px;
+    height: auto;
+    aspect-ratio: 4 / 5;
     margin-top: 44px;
   }
 
@@ -95,7 +98,7 @@
   }
 
   .u-section-1 .u-image-1 {
-    height: 177px;
+    height: auto;
     width: 336px;
   }
 

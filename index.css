@@ -234,9 +234,11 @@
 .u-section-2 .u-image-1 {
   width: 689px;
   max-width: calc(100vw - 32px);
+  aspect-ratio: 1826 / 1300;
   height: auto !important;
   box-sizing: border-box;
-  object-fit: contain;
+  object-fit: cover;
+  object-position: center;
   --animation-custom_in-translate_x: 0px;
   --animation-custom_in-translate_y: 0px;
   --animation-custom_in-opacity: 0;
@@ -256,6 +258,7 @@
 
   .u-section-2 .u-image-1 {
     width: 540px;
+    aspect-ratio: 4 / 5;
   }
 }
 
