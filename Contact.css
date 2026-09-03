@@ -219,14 +219,16 @@
 .agenda-carousel__slide {
   flex: 0 0 100%;
   min-width: 0;
+  aspect-ratio: 4 / 5;
   margin: 0;
+  background: #111111;
 }
 
 .agenda-carousel__slide img {
   display: block;
   width: 100%;
   max-width: none;
-  height: auto !important;
+  height: 100% !important;
   object-fit: contain;
   pointer-events: none;
 }
