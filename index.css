@@ -837,3 +837,35 @@
     font-size: 1.8rem;
   }
 }
+
+/* Reserve the banner's space before either media asset loads. */
+.school-banner {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1280 / 496;
+  overflow: hidden;
+  background: #d5dce0;
+}
+
+.school-banner__poster,
+.school-banner__video {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.school-banner__video {
+  opacity: 0;
+  transition: opacity 350ms ease;
+}
+
+.school-banner.is-playing .school-banner__video {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .school-banner__video { transition: none; }
+}
