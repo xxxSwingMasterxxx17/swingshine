@@ -39,8 +39,28 @@
 .team-hero-inner {
   position: relative;
   z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(260px, 0.7fr);
+  gap: 56px;
+  align-items: center;
   padding-top: 92px;
   padding-bottom: 98px;
+}
+
+.team-hero-photo-wrap {
+  justify-self: end;
+  max-width: 400px;
+  width: 100%;
+  transform: rotate(2deg);
+}
+
+.team-hero-photo {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 22px;
+  border: 5px solid rgba(255, 255, 255, 0.92);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
 }
 
 .team-kicker,
@@ -97,6 +117,10 @@
 
 .team-member + .team-member {
   margin-top: 100px;
+}
+
+.team-member-reverse {
+  grid-template-columns: minmax(0, 1.35fr) minmax(300px, 0.85fr);
 }
 
 .team-member-reverse .team-photo-wrap {
@@ -243,8 +267,14 @@
 
 @media (max-width: 991px) {
   .team-hero-inner {
+    grid-template-columns: minmax(0, 1.2fr) minmax(220px, 0.8fr);
+    gap: 40px;
     padding-top: 76px;
     padding-bottom: 82px;
+  }
+
+  .team-hero-photo-wrap {
+    max-width: 320px;
   }
 
   .team-members {
@@ -255,6 +285,10 @@
   .team-member {
     grid-template-columns: minmax(240px, 0.8fr) minmax(0, 1.2fr);
     gap: 44px;
+  }
+
+  .team-member-reverse {
+    grid-template-columns: minmax(0, 1.2fr) minmax(240px, 0.8fr);
   }
 
   .team-member + .team-member {
@@ -277,8 +311,15 @@
   }
 
   .team-hero-inner {
+    grid-template-columns: 1fr;
+    gap: 44px;
     padding-top: 62px;
     padding-bottom: 68px;
+  }
+
+  .team-hero-photo-wrap {
+    justify-self: center;
+    max-width: 340px;
   }
 
   .team-members,
