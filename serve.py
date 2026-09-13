@@ -3,6 +3,7 @@
 
 import argparse
 import os
+import socket
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
@@ -20,13 +21,20 @@ class NoCacheRequestHandler(SimpleHTTPRequestHandler):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--port", type=int, default=8000)
+    parser.add_argument(
+        "--host",
+        default="0.0.0.0",
+        help="Interface to listen on (default: all interfaces for phone access)",
+    )
     args = parser.parse_args()
 
     project_directory = Path(__file__).resolve().parent
     os.chdir(project_directory)
 
-    server = ThreadingHTTPServer(("127.0.0.1", args.port), NoCacheRequestHandler)
+    server = ThreadingHTTPServer((args.host, args.port), NoCacheRequestHandler)
     print(f"SwingShine is available at http://localhost:{args.port}/")
+    computer_name = socket.gethostname().split(".", 1)[0]
+    print(f"On your phone, open http://{computer_name}.local:{args.port}/")
     print("Caching is disabled. Press Ctrl+C to stop the server.")
 
     try:
