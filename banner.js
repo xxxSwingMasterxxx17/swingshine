@@ -4,6 +4,7 @@
   if (!banner) return;
   var video = banner.querySelector('video');
   var motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var mobilePortrait = window.matchMedia('(max-width: 767px) and (orientation: portrait)');
   var connection = navigator.connection;
   var requested = false;
   var inView = true;
@@ -16,8 +17,8 @@
   function play() {
     if (failed || !requested || document.hidden || !inView) return;
     if (!video.getAttribute('src')) {
-      video.src = window.matchMedia('(max-width: 767px)').matches
-        ? 'videos/school-banner-mobile.mp4' : 'videos/school-banner.mp4';
+      video.src = mobilePortrait.matches
+        ? 'videos/school-banner-mobile.mp4?v=20260913-4' : 'videos/school-banner.mp4?v=20260913-3';
     }
     video.muted = true;
     var result = video.play();
@@ -56,6 +57,14 @@
   }
   motion.addEventListener('change', respectPreferences);
   if (connection) connection.addEventListener('change', respectPreferences);
+  mobilePortrait.addEventListener('change', function () {
+    video.pause();
+    video.removeAttribute('src');
+    video.load();
+    banner.classList.remove('is-playing');
+    failed = false;
+    play();
+  });
 
   // Let the critical page assets load first. With JS disabled, the image stands alone.
   function start() {

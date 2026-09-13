@@ -188,11 +188,11 @@
   }
 
   .u-section-1 .u-layout-cell-2 {
-    min-height: 232px;
+    min-height: 0;
   }
 
   .u-section-1 .u-container-layout-2 {
-    padding: 8px 0;
+    padding: 8px 0 16px;
   }
 
   .u-section-1 .u-group-1 {
@@ -202,12 +202,12 @@
   }
 
   .u-section-1 .u-text-1 {
-    font-size: 2.34375rem;
-    width: auto;
+    display: none;
   }
 
   .u-section-1 .u-text-2 {
     width: auto;
+    margin-top: 0;
   }
 }
 
@@ -397,8 +397,39 @@
 }
 
 @media (max-width: 575px) {
+  .u-section-2 .u-sheet-1 {
+    width: calc(100% - 32px) !important;
+    margin-right: 16px;
+    margin-left: 16px;
+  }
+
   .u-section-2 .u-text-1 {
     font-size: 2.8125rem;
+  }
+
+  .agenda-carousel {
+    width: 100%;
+    max-width: none;
+  }
+
+  .agenda-carousel__stage {
+    position: relative;
+    display: block;
+  }
+
+  .agenda-carousel__navigation {
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .agenda-carousel__navigation--previous {
+    left: 12px;
+  }
+
+  .agenda-carousel__navigation--next {
+    right: 12px;
   }
 }
 
@@ -842,7 +873,7 @@
 .school-banner {
   position: relative;
   width: 100%;
-  aspect-ratio: 1280 / 496;
+  aspect-ratio: 1920 / 576;
   overflow: hidden;
   background: #d5dce0;
 }
@@ -864,6 +895,12 @@
 
 .school-banner.is-playing .school-banner__video {
   opacity: 1;
+}
+
+@media (max-width: 767px) and (orientation: portrait) {
+  .school-banner {
+    aspect-ratio: 368 / 496;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

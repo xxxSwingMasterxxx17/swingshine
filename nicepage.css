@@ -46488,19 +46488,27 @@ a.u-link.u-text-hover-color-var:hover {
 }
 @media (max-width: 575px) {
   .u-header .u-sheet-1 {
-    min-height: 224px;
+    min-height: 132px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px 20px;
+  }
+
+  .u-header .u-sheet-1::before,
+  .u-header .u-sheet-1::after {
+    display: none;
   }
 
   .u-header .u-image-1 {
     height: 124px;
-    margin-top: 20px;
-    margin-left: auto;
+    flex: 0 0 142px;
+    margin: 0;
   }
 
   .u-header .u-menu-1 {
-    margin-top: 30px;
-    margin-right: auto;
-    margin-bottom: 20px;
+    flex: 0 0 auto;
+    margin: 0;
   }
 
   .u-header .u-social-icons-1 {
