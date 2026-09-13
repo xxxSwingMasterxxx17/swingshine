@@ -18,6 +18,18 @@ class NoCacheRequestHandler(SimpleHTTPRequestHandler):
         super().end_headers()
 
 
+def get_local_ip():
+    """Return the IPv4 address used by the active network connection."""
+    probe = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    try:
+        probe.connect(("192.0.2.1", 80))
+        return probe.getsockname()[0]
+    except OSError:
+        return None
+    finally:
+        probe.close()
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--port", type=int, default=8000)
@@ -35,6 +47,9 @@ def main():
     print(f"SwingShine is available at http://localhost:{args.port}/")
     computer_name = socket.gethostname().split(".", 1)[0]
     print(f"On your phone, open http://{computer_name}.local:{args.port}/")
+    local_ip = get_local_ip()
+    if local_ip:
+        print(f"Or use http://{local_ip}:{args.port}/")
     print("Caching is disabled. Press Ctrl+C to stop the server.")
 
     try:

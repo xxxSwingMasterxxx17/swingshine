@@ -1107,17 +1107,19 @@
 
 @media (max-width: 575px) {
   .u-section-4 .u-sheet-1 {
-    min-height: 679px;
+    min-height: 0;
+    padding-top: 96px;
   }
 
   .u-section-4 .u-text-1 {
     width: auto;
-    margin-top: 96px;
+    margin-top: 0;
   }
 
   .u-section-4 .u-icon-1 {
-    margin-top: -550px;
-    margin-right: 61px;
-    margin-left: auto;
+    position: absolute;
+    top: 32px;
+    right: 61px;
+    margin: 0;
   }
 }
