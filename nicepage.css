@@ -46401,6 +46401,146 @@ a.u-link.u-text-hover-color-var:hover {
   border-color: #e7ab0d !important;
 }
 
+/* Moonrise Blues tab: a little night sky with a crescent moon */
+#sec-3c14 .u-nav-link.nav-moonrise {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 16px 6px 36px !important;
+  border: 1px solid rgba(199, 194, 123, 0.6) !important;
+  border-radius: 999px !important;
+  color: #f5f7f6 !important;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  background-color: #374066;
+  background-image:
+    linear-gradient(105deg, rgba(226, 220, 147, 0) 40%, rgba(226, 220, 147, 0.42) 50%, rgba(226, 220, 147, 0) 60%),
+    radial-gradient(1px 1px at 78% 28%, rgba(245, 247, 246, 0.9), transparent),
+    radial-gradient(1px 1px at 60% 78%, rgba(220, 229, 186, 0.7), transparent),
+    linear-gradient(120deg, #2c3457 0%, #374066 55%, #435779 100%);
+  background-repeat: no-repeat;
+  background-size: 300% 100%, 100% 100%, 100% 100%, 100% 100%;
+  background-position: 100% 0, 0 0, 0 0, 0 0;
+  animation: nav-moonrise-sheen 7s ease-in-out infinite, nav-moonrise-halo 7s ease-in-out infinite;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+#sec-3c14 .u-nav-link.nav-moonrise::before {
+  position: absolute;
+  top: 50%;
+  left: 13px;
+  width: 15px;
+  height: 15px;
+  margin-top: -8px;
+  border-radius: 50%;
+  content: "";
+  box-shadow: inset 5px -2px 0 0 #e2dc93;
+  filter: drop-shadow(0 0 4px rgba(226, 220, 147, 0.75));
+  animation: nav-moon-bob 4s ease-in-out infinite;
+}
+
+#sec-3c14 .u-nav-link.nav-moonrise::after {
+  position: absolute;
+  top: 4px;
+  right: 7px;
+  width: 7px;
+  height: 7px;
+  content: "";
+  background: #e2dc93;
+  clip-path: polygon(50% 0, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0 50%, 39% 39%);
+  animation: nav-star-twinkle 2.6s ease-in-out infinite;
+}
+
+#sec-3c14 .u-nav-link.nav-moonrise:hover,
+#sec-3c14 .u-nav-link.nav-moonrise:focus-visible {
+  color: #ffffff !important;
+  border-color: #e2dc93 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 0 0 3px rgba(226, 220, 147, 0.16), 0 6px 22px rgba(199, 194, 123, 0.5);
+  animation: nav-moonrise-sheen 1.8s ease-in-out infinite;
+}
+
+#sec-3c14 .u-nav-link.nav-moonrise:hover::before,
+#sec-3c14 .u-nav-link.nav-moonrise:focus-visible::before {
+  filter: drop-shadow(0 0 6px rgba(226, 220, 147, 1));
+  animation: nav-moon-rock 1.5s ease-in-out infinite;
+}
+
+#sec-3c14 .u-nav-link.nav-moonrise:hover::after,
+#sec-3c14 .u-nav-link.nav-moonrise:focus-visible::after {
+  animation: nav-star-pop 0.9s ease-in-out infinite alternate;
+}
+
+#sec-3c14 .u-nav-link.nav-moonrise[aria-current="page"] {
+  border-color: #e2dc93 !important;
+}
+
+/* Hint on the hamburger icon so the tab is noticed on phones */
+#sec-3c14 .menu-collapse .u-hamburger-link {
+  position: relative;
+  overflow: visible;
+}
+
+#sec-3c14 .menu-collapse .u-hamburger-link::after {
+  position: absolute;
+  top: -7px;
+  right: -11px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  content: "";
+  background:
+    radial-gradient(circle at 64% 38%, #374066 0 34%, transparent 35%),
+    radial-gradient(circle at 50% 50%, #e2dc93 0 42%, transparent 43%),
+    #374066;
+  box-shadow: 0 0 0 0 rgba(55, 64, 102, 0.45);
+  animation: nav-badge-pulse 2.8s ease-out infinite;
+}
+
+@keyframes nav-moonrise-sheen {
+  0%, 55% { background-position: 100% 0, 0 0, 0 0, 0 0; }
+  85%, 100% { background-position: 0% 0, 0 0, 0 0, 0 0; }
+}
+
+@keyframes nav-moonrise-halo {
+  0%, 50%, 100% { box-shadow: 0 0 0 0 rgba(226, 220, 147, 0); }
+  70% { box-shadow: 0 0 14px 2px rgba(226, 220, 147, 0.5); }
+}
+
+@keyframes nav-moon-bob {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-1.5px) rotate(-10deg); }
+}
+
+@keyframes nav-moon-rock {
+  0%, 100% { transform: translateY(-2px) rotate(-24deg) scale(1.18); }
+  50% { transform: translateY(-3px) rotate(14deg) scale(1.18); }
+}
+
+@keyframes nav-star-twinkle {
+  0%, 100% { opacity: 1; transform: scale(1) rotate(0deg); }
+  50% { opacity: 0.35; transform: scale(0.55) rotate(45deg); }
+}
+
+@keyframes nav-star-pop {
+  from { opacity: 1; transform: scale(1.1) rotate(0deg); }
+  to { opacity: 1; transform: scale(1.6) rotate(90deg); }
+}
+
+@keyframes nav-badge-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(55, 64, 102, 0.45); }
+  70%, 100% { box-shadow: 0 0 0 7px rgba(55, 64, 102, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #sec-3c14 .u-nav-link.nav-moonrise,
+  #sec-3c14 .u-nav-link.nav-moonrise::before,
+  #sec-3c14 .u-nav-link.nav-moonrise::after,
+  #sec-3c14 .menu-collapse .u-hamburger-link::after {
+    animation: none !important;
+  }
+}
+
 .u-header .u-nav-2 {
   font-size: 1rem;
   letter-spacing: 0px;
@@ -46438,8 +46578,8 @@ a.u-link.u-text-hover-color-var:hover {
 
   .u-header .u-menu-1 {
     display: block;
-    width: 780px;
-    flex: 0 0 780px;
+    width: 840px;
+    flex: 0 0 840px;
   }
 
   .u-header .u-nav-container,
