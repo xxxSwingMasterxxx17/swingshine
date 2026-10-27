@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Moonrise Blues - cadre reel profs (1080x1920)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?display=block&family=Poiret+One">
+  <style>
+    :root {
+      --mb-mist: #cacdb3;
+      --mb-moon-bright: #e2dc93;
+      --mb-white: #f5f7f6;
+    }
+
+    html,
+    body {
+      margin: 0;
+      background: transparent;
+    }
+
+    .reel {
+      position: relative;
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+    }
+
+    .reel > svg {
+      position: absolute;
+      inset: 0;
+    }
+
+    /* Logo: same construction as .mb-title-wrap on MoonriseBlues.html */
+    .title-wrap {
+      position: absolute;
+      top: 26px;
+      left: 50%;
+      padding-left: 0.12em;
+      color: var(--mb-white);
+      font-family: "Poiret One", sans-serif;
+      font-size: 100px;
+      translate: -50% 0;
+    }
+
+    .title-wrap,
+    .names {
+      filter: drop-shadow(0 0 4px rgba(245, 247, 246, 0.7)) drop-shadow(0 0 14px rgba(220, 229, 186, 0.45));
+    }
+
+    .title-main {
+      display: block;
+      font-size: 1em;
+      line-height: 1;
+      letter-spacing: 0.005em;
+      white-space: nowrap;
+      -webkit-text-stroke: 0.014em currentColor;
+    }
+
+    .title-sub {
+      display: block;
+      margin-top: 0.12em;
+      padding-right: 0.06em;
+      font-size: 0.34em;
+      letter-spacing: 0.05em;
+      line-height: 1;
+      text-align: right;
+      -webkit-text-stroke: 0.01em currentColor;
+    }
+
+    /* 1 SVG unit = 0.01em. The path starts 0.1em above the baseline, centred on
+       the left stem of Poiret One's "M", and matches the stem width. */
+    .swash {
+      position: absolute;
+      top: calc(0.876em - 0.1em);
+      left: calc(0.12em + 0.09em - 0.1em);
+      width: 0.85em;
+      height: 1.8em;
+      overflow: visible;
+    }
+
+    .swash-line {
+      fill: none;
+      stroke: var(--mb-white);
+      stroke-width: 4.4;
+    }
+
+    .swash-star {
+      fill: var(--mb-white);
+    }
+
+    .names {
+      position: absolute;
+      top: 1728px;
+      left: 0;
+      right: 0;
+      margin: 0;
+      color: var(--mb-white);
+      font-family: "Poiret One", sans-serif;
+      font-size: 100px;
+      line-height: 1;
+      letter-spacing: 0.005em;
+      text-align: center;
+      white-space: nowrap;
+      -webkit-text-stroke: 0.014em currentColor;
+    }
+
+    .when {
+      position: absolute;
+      top: 1858px;
+      left: 0;
+      right: 0;
+      margin: 0;
+      color: var(--mb-mist);
+      font-family: "Poiret One", sans-serif;
+      font-size: 42px;
+      line-height: 1;
+      text-align: center;
+      -webkit-text-stroke: 0.01em currentColor;
+    }
+
+    .when .sep {
+      margin: 0 0.4em;
+      color: var(--mb-moon-bright);
+      font-size: 0.6em;
+      vertical-align: 0.18em;
+    }
+
+    .no-text .title-wrap,
+    .no-text .names,
+    .no-text .when {
+      display: none;
+    }
+
+    .window-fill {
+      display: none;
+    }
+
+    .preview .window-fill {
+      display: inline;
+    }
+  </style>
+</head>
+<body>
+  <div class="reel" id="reel">
+    <svg width="1080" height="1920" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <!-- Video window: 900 x 1500, arched top -->
+        <path id="window" d="M90 1654 V490 A450 300 0 0 1 990 490 V1654 Q990 1690 954 1690 H126 Q90 1690 90 1654 Z"/>
+        <path id="window-outer" d="M66 1678 V490 A474 324 0 0 1 1014 490 V1678 Q1014 1714 978 1714 H102 Q66 1714 66 1678 Z"/>
+
+        <path id="star" d="M50 0C52.6 36 64 47.4 100 50C64 52.6 52.6 64 50 100C47.4 64 36 52.6 0 50C36 47.4 47.4 36 50 0Z"/>
+        <path id="star-long" d="M50 0C52.4 34 63 46 100 50C63 54 53 70 50 170C47 70 37 54 0 50C37 46 47.6 34 50 0Z"/>
+
+        <mask id="hole" maskUnits="userSpaceOnUse" x="0" y="0" width="1080" height="1920">
+          <rect width="1080" height="1920" fill="#fff"/>
+          <use href="#window" fill="#000"/>
+        </mask>
+
+        <clipPath id="window-clip"><use href="#window"/></clipPath>
+
+        <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#374066"/>
+          <stop offset="0.55" stop-color="#323b62"/>
+          <stop offset="1" stop-color="#1e2442"/>
+        </linearGradient>
+
+        <radialGradient id="sky-glow" cx="0.5" cy="0.5" r="0.5">
+          <stop offset="0" stop-color="#3e4a73"/>
+          <stop offset="1" stop-color="#3e4a73" stop-opacity="0"/>
+        </radialGradient>
+
+        <!-- Same recipe as .mb-moon: lit on the right edge, sage then teal, fading out -->
+        <radialGradient id="moon" cx="0.5" cy="0.5" r="0.5" fx="0.96" fy="0.5">
+          <stop offset="0" stop-color="#ece49a"/>
+          <stop offset="0.12" stop-color="#d6cf84"/>
+          <stop offset="0.3" stop-color="#b8c69c"/>
+          <stop offset="0.48" stop-color="#86a49a"/>
+          <stop offset="0.66" stop-color="#607f8a"/>
+          <stop offset="0.84" stop-color="#435779" stop-opacity="0.35"/>
+          <stop offset="1" stop-color="#435779" stop-opacity="0"/>
+        </radialGradient>
+
+        <filter id="blur-moon" x="-30%" y="-30%" width="160%" height="160%">
+          <feGaussianBlur stdDeviation="22"/>
+        </filter>
+
+        <filter id="glow-line" x="-10%" y="-10%" width="120%" height="120%">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="7" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+
+        <filter id="glow-star" x="-150%" y="-150%" width="400%" height="400%">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="14" result="wide"/>
+          <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="near"/>
+          <feMerge><feMergeNode in="wide"/><feMergeNode in="near"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+
+        <filter id="grain" x="0" y="0" width="100%" height="100%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/>
+          <feColorMatrix type="saturate" values="0"/>
+        </filter>
+      </defs>
+
+      <g mask="url(#hole)">
+        <g style="isolation: isolate">
+          <rect width="1080" height="1920" fill="url(#sky)"/>
+          <ellipse cx="700" cy="900" rx="720" ry="820" fill="url(#sky-glow)"/>
+
+          <!-- The moon rises behind the end of the title, as on the poster -->
+          <g filter="url(#blur-moon)">
+            <circle cx="800" cy="250" r="300" fill="url(#moon)"/>
+          </g>
+
+          <g id="starfield"></g>
+
+          <rect width="1080" height="1920" filter="url(#grain)" opacity="0.22" style="mix-blend-mode: overlay"/>
+        </g>
+      </g>
+
+      <!-- Placeholder shown only in preview renders -->
+      <image class="window-fill" href="preview-still.jpg" x="90" y="190" width="900" height="1500" preserveAspectRatio="xMidYMid slice" clip-path="url(#window-clip)"/>
+
+      <!-- Frame: a glowing moonlight line on the window edge, a faint outer line -->
+      <use href="#window-outer" fill="none" stroke="#cacdb3" stroke-opacity="0.38" stroke-width="2"/>
+      <use href="#window" fill="none" stroke="#e2dc93" stroke-width="4" filter="url(#glow-line)"/>
+
+      <!-- Stars on the frame -->
+      <g filter="url(#glow-star)">
+        <use href="#star-long" fill="#f5f7f6" transform="translate(976 222) scale(0.62)"/>
+        <use href="#star" fill="#dce5ba" transform="translate(956 1656) scale(0.68)"/>
+        <use href="#star" fill="#f5f7f6" transform="translate(46 1054) scale(0.4)"/>
+        <use href="#star" fill="#f5f7f6" transform="translate(44 70) scale(0.24)"/>
+      </g>
+    </svg>
+
+    <div class="title-wrap">
+      <svg class="swash" viewBox="0 0 85 180" preserveAspectRatio="xMinYMin meet" aria-hidden="true">
+        <path class="swash-line" d="M10 0V10C10 49 14 80 25.5 100C33 113 42.5 120 50 123"/>
+        <use class="swash-star" href="#star" x="34.5" y="107.5" width="31" height="31"/>
+      </svg>
+      <h1 style="margin: 0; font: inherit;">
+        <span class="title-main">Moonrise Blues</span>
+        <span class="title-sub">dance festival</span>
+      </h1>
+    </div>
+
+    <p class="names"><span id="names">Audrey &amp; Océane</span></p>
+    <p class="when">27–28 fév 2027<span class="sep">✦</span>La Rochelle</p>
+  </div>
+
+  <script>
+    var params = new URLSearchParams(location.search);
+    var reel = document.getElementById('reel');
+    if (params.get('text') === '0') reel.classList.add('no-text');
+    if (params.get('preview') === '1') reel.classList.add('preview');
+
+    var names = document.getElementById('names');
+    if (params.get('names')) names.textContent = params.get('names');
+
+    // Long names shrink to stay inside the 960px between the frame edges
+    document.fonts.ready.then(function () {
+      var width = names.getBoundingClientRect().width;
+      if (width > 960) names.parentNode.style.fontSize = (100 * 960 / width) + 'px';
+    });
+
+    // Deterministic starfield so every render is identical
+    var seed = 7;
+    function rand() {
+      seed = (seed * 16807) % 2147483647;
+      return (seed - 1) / 2147483646;
+    }
+    var ns = 'http://www.w3.org/2000/svg';
+    var field = document.getElementById('starfield');
+    for (var i = 0; i < 140; i++) {
+      var dot = document.createElementNS(ns, 'circle');
+      var big = rand() < 0.15;
+      dot.setAttribute('cx', (rand() * 1080).toFixed(1));
+      dot.setAttribute('cy', (rand() * 1920).toFixed(1));
+      dot.setAttribute('r', (big ? 2 + rand() * 1.2 : 0.8 + rand() * 1.1).toFixed(2));
+      dot.setAttribute('fill', rand() < 0.4 ? '#dce5ba' : '#f5f7f6');
+      dot.setAttribute('opacity', (0.35 + rand() * 0.6).toFixed(2));
+      field.appendChild(dot);
+    }
+  </script>
+</body>
+</html>
