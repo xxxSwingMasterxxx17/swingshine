@@ -126,6 +126,47 @@
     update();
   }
 
+  function between(min, max) {
+    return min + Math.random() * (max - min);
+  }
+
+  // Starts somewhere between minTop and maxTop (px from the top of the layer).
+  function launchMeteor(layer, minTop, maxTop) {
+    var width = layer.offsetWidth;
+    var towardsLeft = Math.random() < 0.65;
+    var angle = towardsLeft ? between(142, 162) : between(18, 38);
+    var distance = Math.max(180, Math.min(460, width * between(0.2, 0.32)));
+    var duration = between(950, 1450);
+
+    var meteor = document.createElement('span');
+    var tail = document.createElement('span');
+    meteor.className = 'mb-meteor';
+    tail.className = 'mb-meteor-tail';
+    meteor.style.left = (towardsLeft ? between(0.4, 0.92) : between(0.06, 0.5)) * width + 'px';
+    meteor.style.top = between(minTop, maxTop) + 'px';
+    meteor.style.setProperty('--length', Math.round(distance * between(0.4, 0.55)) + 'px');
+    meteor.appendChild(tail);
+    layer.appendChild(meteor);
+
+    var rotation = 'rotate(' + angle.toFixed(1) + 'deg)';
+    var flight = meteor.animate([
+      { transform: rotation + ' translateX(0)', opacity: 0 },
+      { opacity: 1, offset: 0.12 },
+      { opacity: 1, offset: 0.62 },
+      { transform: rotation + ' translateX(' + Math.round(distance) + 'px)', opacity: 0 }
+    ], { duration: duration, easing: 'cubic-bezier(0.4, 0, 0.7, 1)' });
+
+    tail.animate([
+      { transform: 'scaleX(0.05)' },
+      { transform: 'scaleX(1)', offset: 0.5 },
+      { transform: 'scaleX(0.35)' }
+    ], { duration: duration, easing: 'ease-out' });
+
+    flight.onfinish = function () {
+      meteor.remove();
+    };
+  }
+
   function setupMeteors() {
     var hero = document.querySelector('[data-hero]');
     var layer = hero && hero.querySelector('.mb-hero-stars');
@@ -138,50 +179,11 @@
       }).observe(hero);
     }
 
-    function between(min, max) {
-      return min + Math.random() * (max - min);
-    }
-
-    function launch() {
-      var width = hero.offsetWidth;
-      var height = hero.offsetHeight;
-      var towardsLeft = Math.random() < 0.65;
-      var angle = towardsLeft ? between(142, 162) : between(18, 38);
-      var distance = Math.max(180, Math.min(460, width * between(0.2, 0.32)));
-      var duration = between(950, 1450);
-
-      var meteor = document.createElement('span');
-      var tail = document.createElement('span');
-      meteor.className = 'mb-meteor';
-      tail.className = 'mb-meteor-tail';
-      meteor.style.left = (towardsLeft ? between(0.4, 0.92) : between(0.06, 0.5)) * width + 'px';
-      meteor.style.top = between(0.04, 0.34) * height + 'px';
-      meteor.style.setProperty('--length', Math.round(distance * between(0.4, 0.55)) + 'px');
-      meteor.appendChild(tail);
-      layer.appendChild(meteor);
-
-      var rotation = 'rotate(' + angle.toFixed(1) + 'deg)';
-      var flight = meteor.animate([
-        { transform: rotation + ' translateX(0)', opacity: 0 },
-        { opacity: 1, offset: 0.12 },
-        { opacity: 1, offset: 0.62 },
-        { transform: rotation + ' translateX(' + Math.round(distance) + 'px)', opacity: 0 }
-      ], { duration: duration, easing: 'cubic-bezier(0.4, 0, 0.7, 1)' });
-
-      tail.animate([
-        { transform: 'scaleX(0.05)' },
-        { transform: 'scaleX(1)', offset: 0.5 },
-        { transform: 'scaleX(0.35)' }
-      ], { duration: duration, easing: 'ease-out' });
-
-      flight.onfinish = function () {
-        meteor.remove();
-      };
-    }
-
     function schedule(delay) {
       window.setTimeout(function () {
-        if (heroVisible && !document.hidden) launch();
+        if (heroVisible && !document.hidden) {
+          launchMeteor(layer, hero.offsetHeight * 0.04, hero.offsetHeight * 0.34);
+        }
         schedule(between(4500, 10000));
       }, delay);
     }
@@ -189,8 +191,163 @@
     schedule(3200);
   }
 
+  // Shooting stars over the rest of the page, in the visible band between the
+  // bottom of the hero and the footer.
+  function setupPageMeteors() {
+    var layer = document.querySelector('[data-page-meteors]');
+    var hero = document.querySelector('[data-hero]');
+    if (!layer || !layer.animate || reducedMotion.matches) return;
+
+    var page = layer.parentNode;
+
+    function schedule(delay) {
+      window.setTimeout(function () {
+        var top = Math.max(0, hero ? hero.getBoundingClientRect().bottom : 0);
+        var bottom = Math.min(layer.offsetHeight, page.getBoundingClientRect().bottom);
+        if (!document.hidden && bottom - top > 240) {
+          launchMeteor(layer, top + (bottom - top) * 0.05, top + (bottom - top) * 0.5);
+        }
+        schedule(between(6000, 13000));
+      }, delay);
+    }
+
+    schedule(5000);
+  }
+
+  function setupProfToggles() {
+    var toggles = document.querySelectorAll('.mb-prof-toggle');
+    Array.prototype.forEach.call(toggles, function (toggle) {
+      var more = document.getElementById(toggle.getAttribute('aria-controls'));
+      if (!more) return;
+
+      function setOpen(open) {
+        more.hidden = !open;
+        toggle.setAttribute('aria-expanded', String(open));
+        toggle.textContent = open ? 'Réduire' : 'Lire la suite';
+      }
+
+      toggle.addEventListener('click', function () {
+        var open = toggle.getAttribute('aria-expanded') !== 'true';
+        setOpen(open);
+        if (!open && toggle.getBoundingClientRect().top < 0) {
+          toggle.scrollIntoView({ block: 'center' });
+        }
+      });
+
+      setOpen(false);
+      toggle.hidden = false;
+    });
+  }
+
+  // Faint stars glide towards the centre of the screen, fading in and out.
+  function setupStarDrift() {
+    var canvas = document.querySelector('[data-star-drift]');
+    var context = canvas && canvas.getContext && canvas.getContext('2d');
+    if (!context) return;
+
+    var page = canvas.parentNode;
+    var hero = document.querySelector('[data-hero]');
+    var rootStyles = window.getComputedStyle(document.documentElement);
+    var tones = [
+      rootStyles.getPropertyValue('--mb-star').trim(),
+      rootStyles.getPropertyValue('--mb-white').trim()
+    ];
+    var stars = [];
+    var width = 0;
+    var height = 0;
+    var lastDraw = 0;
+
+    function smoothstep(min, max, value) {
+      var t = Math.min(1, Math.max(0, (value - min) / (max - min)));
+      return t * t * (3 - 2 * t);
+    }
+
+    function build() {
+      var count = width < 620 ? 70 : 140;
+      if (stars.length === count) return;
+      var random = createRandom(4242);
+      stars = [];
+      for (var i = 0; i < count; i++) {
+        stars.push({
+          x: random(),
+          y: random(),
+          size: 0.47 + random() * 0.84,
+          alpha: 0.14 + random() * 0.32,
+          tone: random() > 0.75 ? 1 : 0,
+          phase: random(),
+          speed: 0.00001 + random() * 0.000012
+        });
+      }
+    }
+
+    function resize() {
+      var ratio = Math.min(window.devicePixelRatio || 1, 2);
+      width = canvas.clientWidth;
+      height = canvas.clientHeight;
+      canvas.width = Math.round(width * ratio);
+      canvas.height = Math.round(height * ratio);
+      context.setTransform(ratio, 0, 0, ratio, 0, 0);
+      build();
+    }
+
+    function draw(time) {
+      context.clearRect(0, 0, width, height);
+      // The hero has its own sky; stars fade in below it and stop at the footer.
+      var top = hero ? hero.getBoundingClientRect().bottom : 0;
+      var bottom = Math.min(height, page.getBoundingClientRect().bottom);
+      if (bottom <= Math.max(0, top)) return;
+
+      context.save();
+      context.beginPath();
+      context.rect(0, 0, width, bottom);
+      context.clip();
+      for (var i = 0; i < stars.length; i++) {
+        var star = stars[i];
+        var travel = (star.phase + time * star.speed) % 1;
+        var distance = 1 - travel * 0.94;
+        var x = width * (0.5 + (star.x - 0.5) * distance);
+        var y = height * (0.5 + (star.y - 0.5) * distance);
+        var alpha = star.alpha * smoothstep(0, 0.1, travel) * (1 - smoothstep(0.72, 1, travel)) * smoothstep(top, top + 160, y);
+        if (alpha <= 0.004) continue;
+        context.globalAlpha = alpha;
+        context.fillStyle = tones[star.tone];
+        context.beginPath();
+        context.arc(x, y, star.size * (0.72 + distance * 0.42), 0, Math.PI * 2);
+        context.fill();
+      }
+      context.restore();
+    }
+
+    function animate(time) {
+      // The drift is slow: 30 fps is plenty and spares phone batteries.
+      if (time - lastDraw > 32) {
+        lastDraw = time;
+        draw(time);
+      }
+      window.requestAnimationFrame(animate);
+    }
+
+    resize();
+    window.addEventListener('resize', function () {
+      resize();
+      draw(reducedMotion.matches ? 0 : performance.now());
+    });
+
+    if (reducedMotion.matches) {
+      draw(0);
+      window.addEventListener('scroll', function () {
+        draw(0);
+      }, { passive: true });
+    } else {
+      window.requestAnimationFrame(animate);
+    }
+  }
+
   fillStarfields();
+  setupStarDrift();
+  setupProfToggles();
   setupMeteors();
+  setupPageMeteors();
   setupReveal();
   setupCountdown();
   setupScrollEffects();

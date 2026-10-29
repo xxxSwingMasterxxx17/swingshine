@@ -11,8 +11,8 @@
   <title>Moonrise Blues - Festival de danse blues à La Rochelle</title>
   <link rel="preload" as="image" href="images/Messenger_creation_DF32A671-FF41-4582-B75A-436D1D185417.jpeg">
   <link rel="stylesheet" href="nicepage.css?v=20261001-1" media="screen">
-  <link rel="stylesheet" href="MoonriseBlues.css?v=20261001-1" media="screen">
-  <script src="MoonriseBlues.js?v=20261001-1" defer></script>
+  <link rel="stylesheet" href="MoonriseBlues.css?v=20261029-10" media="screen">
+  <script src="MoonriseBlues.js?v=20261029-2" defer></script>
   <script class="u-script" type="text/javascript" src="jquery.js" defer></script>
   <script class="u-script" type="text/javascript" src="nicepage.js" defer></script>
   <meta name="generator" content="Nicepage 7.12.3, nicepage.com">
@@ -32,8 +32,9 @@
     "image": "images/moonrise-blues-affiche.jpg",
     "location": {
       "@type": "Place",
-      "name": "La Rochelle",
-      "address": { "@type": "PostalAddress", "addressLocality": "La Rochelle", "addressCountry": "FR" }
+      "name": "Salle polyvalente Mélusine",
+      "address": { "@type": "PostalAddress", "streetAddress": "31 rue des Quatre Chevaliers", "postalCode": "17220", "addressLocality": "La Jarne", "addressCountry": "FR" },
+      "geo": { "@type": "GeoCoordinates", "latitude": 46.122133, "longitude": -1.073516 }
     },
     "organizer": {
       "@type": "Organization",
@@ -56,6 +57,19 @@
     <symbol id="mb-star-long" viewBox="0 0 100 170">
       <path d="M50 0C52.4 34 63 46 100 50C63 54 53 70 50 170C47 70 37 54 0 50C37 46 47.6 34 50 0Z"></path>
     </symbol>
+    <filter id="mb-swash-star-glow" x="-100%" y="-100%" width="300%" height="300%" color-interpolation-filters="sRGB">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="5" result="wide-blur"></feGaussianBlur>
+      <feFlood flood-color="#dce5ba" flood-opacity="0.45"></feFlood>
+      <feComposite in2="wide-blur" operator="in" result="wide-glow"></feComposite>
+      <feGaussianBlur in="SourceAlpha" stdDeviation="1.5" result="tight-blur"></feGaussianBlur>
+      <feFlood flood-color="#f5f7f6" flood-opacity="0.7"></feFlood>
+      <feComposite in2="tight-blur" operator="in" result="tight-glow"></feComposite>
+      <feMerge>
+        <feMergeNode in="wide-glow"></feMergeNode>
+        <feMergeNode in="tight-glow"></feMergeNode>
+        <feMergeNode in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
   </svg>
 
   <header class="u-clearfix u-header" id="sec-3c14">
@@ -77,7 +91,7 @@
             <li role="none" class="u-nav-item"><a role="menuitem" class="u-border-2 u-border-active-palette-1-base u-border-hover-palette-1-light-1 u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-1-base" href="Schedule.html?v=20260818-1" style="padding: 6px 0;">Horaires et tarifs</a></li>
             <li role="none" class="u-nav-item"><a role="menuitem" class="u-border-2 u-border-active-palette-1-base u-border-hover-palette-1-light-1 u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-1-base" href="SwingDances.html?v=20260818-1" style="padding: 6px 0;">Cours et niveaux</a></li>
             <li role="none" class="u-nav-item"><a role="menuitem" class="u-border-2 u-border-active-palette-1-base u-border-hover-palette-1-light-1 u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-1-base" href="Contact.html?v=20260818-1" style="padding: 6px 0;">Contact</a></li>
-            <li role="none" class="u-nav-item"><a role="menuitem" class="u-border-2 u-border-active-palette-1-base u-border-hover-palette-1-light-1 u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-1-base nav-moonrise" href="MoonriseBlues.html?v=20261001-1" aria-current="page" style="padding: 6px 0;">Moonrise Blues</a></li>
+            <li role="none" class="u-nav-item"><a role="menuitem" class="u-border-2 u-border-active-palette-1-base u-border-hover-palette-1-light-1 u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-1-base nav-moonrise" href="MoonriseBlues.html?v=20261029-2" aria-current="page" style="padding: 6px 0;">Moonrise Blues</a></li>
           </ul>
         </div>
         <div class="u-custom-menu u-nav-container-collapse" id="moonrise-menu" role="region" aria-label="Menu mobile">
@@ -90,7 +104,7 @@
                 <li role="none" class="u-nav-item"><a role="menuitem" class="u-button-style u-nav-link" href="Schedule.html?v=20260818-1">Horaires et tarifs</a></li>
                 <li role="none" class="u-nav-item"><a role="menuitem" class="u-button-style u-nav-link" href="SwingDances.html?v=20260818-1">Cours et niveaux</a></li>
                 <li role="none" class="u-nav-item"><a role="menuitem" class="u-button-style u-nav-link" href="Contact.html?v=20260818-1">Contact</a></li>
-                <li role="none" class="u-nav-item"><a role="menuitem" class="u-button-style u-nav-link nav-moonrise" href="MoonriseBlues.html?v=20261001-1" aria-current="page">Moonrise Blues</a></li>
+                <li role="none" class="u-nav-item"><a role="menuitem" class="u-button-style u-nav-link nav-moonrise" href="MoonriseBlues.html?v=20261029-2" aria-current="page">Moonrise Blues</a></li>
               </ul>
               <div class="u-social-icons u-social-icons-1">
                 <a class="u-social-url" title="Facebook" target="_blank" href="https://www.facebook.com/share/12KfXsAnh5H/"><span class="u-icon u-social-facebook u-social-icon u-text-palette-1-base u-icon-1"><svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 112 112"><use xlink:href="#moonrise-facebook"></use></svg><svg class="u-svg-content" viewBox="0 0 112 112" id="moonrise-facebook"><path fill="currentColor" d="M75.5,28.8H65.4c-1.5,0-4,0.9-4,4.3v9.4h13.9l-1.5,15.8H61.4v45.1H42.8V58.3h-8.8V42.4h8.8V32.2c0-7.4,3.4-18.8,18.8-18.8h13.8v15.4H75.5z"></path></svg></span></a>
@@ -105,6 +119,8 @@
   </header>
 
   <main class="mb-page">
+    <canvas class="mb-star-drift" aria-hidden="true" data-star-drift></canvas>
+    <div class="mb-page-meteors" aria-hidden="true" data-page-meteors></div>
     <section class="mb-hero" aria-labelledby="mb-title" data-hero>
       <div class="mb-sky" aria-hidden="true" data-starfield></div>
       <div class="mb-moon-track" aria-hidden="true">
@@ -171,6 +187,60 @@
       </div>
     </section>
 
+    <section class="mb-profs" id="professeurs" aria-labelledby="mb-profs-title">
+      <div class="mb-shell">
+        <div class="mb-section-head">
+          <p class="mb-kicker" data-reveal>Les professeurs</p>
+          <h2 class="mb-h2" id="mb-profs-title" data-reveal>Trois couples pour vous guider</h2>
+        </div>
+
+        <div class="mb-profs-list">
+          <article class="mb-prof" aria-labelledby="mb-prof-1">
+            <div class="mb-prof-frame" data-reveal>
+              <img src="images/moonrise-prof-laurent-benedicte.webp" alt="Laurent et Bénédicte en train de danser" width="325" height="560" loading="lazy">
+            </div>
+            <div class="mb-prof-copy" data-reveal>
+              <p class="mb-prof-rank">Premier couple</p>
+              <h3 id="mb-prof-1">Laurent &amp; Bénédicte</h3>
+              <p>Bénédicte et Laurent enseignent le lindy hop et le blues à Paris depuis 2017, avec une approche complémentaire et exigeante. Leur pédagogie s'appuie sur leur expérience acquise dans de nombreux festivals internationaux, à la fois en tant qu'enseignants, compétiteurs et danseurs sociaux.</p>
+              <p>Bénédicte s'attache particulièrement à transmettre une danse consciente et connectée, en mettant l'accent sur le rôle précis de chaque partie du corps. Laurent, de son côté, développe une approche technique fondée sur les principes de la mécanique et de la physique, qu'il aime rendre accessibles et applicables dans le mouvement.</p>
+              <div class="mb-prof-more" id="mb-prof-1-more" data-prof-more>
+                <p>Ils s'attachent à danser et à transmettre le blues dans toute sa richesse, en explorant ses multiples formes&nbsp;: ballroomin', chicago triple, struttin', latin blues, texas shuffle… Leur enseignement allie technique, musicalité, connexion et groove, avec le désir de rendre chaque style vivant, incarné et ancré dans son contexte culturel.</p>
+                <p>Tous deux partagent une grande attention à la pédagogie, avec le désir constant d'affiner leurs méthodes. Ils aspirent à créer des espaces de réflexion autour de l'enseignement de la danse, à travers des ateliers dédiés, tout en continuant à se former auprès des meilleurs instructeurs internationaux.</p>
+                <p>Leur pratique ne se limite pas au blues&nbsp;: issus du lindy hop, ils proposent aussi des stages réguliers autour du swing, en solo comme en couple.</p>
+                <p>En parallèle de son enseignement, Bénédicte s'investit activement dans le développement de la scène blues parisienne, notamment en gérant l'école de danse Groov'it. Elle organise également des événements tels que le Paris Midnight Blues ou les Boost Your… et contribue à faire vivre la danse sociale à travers des soirées régulières et des collaborations avec d'autres acteurs de la communauté.</p>
+              </div>
+              <button class="mb-prof-toggle" type="button" aria-expanded="true" aria-controls="mb-prof-1-more" hidden>Lire la suite</button>
+            </div>
+          </article>
+
+          <article class="mb-prof" aria-labelledby="mb-prof-2">
+            <div class="mb-prof-frame" data-reveal>
+              <img src="images/moonrise-prof-audrey-oceane.webp" alt="Audrey et Océane en train de danser" width="745" height="951" loading="lazy">
+            </div>
+            <div class="mb-prof-copy" data-reveal>
+              <p class="mb-prof-rank">Deuxième couple</p>
+              <h3 id="mb-prof-2">Audrey &amp; Océane</h3>
+              <p>Océane découvre d'abord l'univers du swing en 2017, et cette passion la conduira à franchir les portes de son premier festival de blues deux ans plus tard. De festivals en workshops, elle explore cette danse dans tous ses recoins et en tombe très vite sous le charme. Elle aime la diversité des styles musicaux et les possibilités infinies d'interprétation qu'offre cette danse.</p>
+              <p>Audrey est une véritable amoureuse de la danse. Dès l'âge de 6&nbsp;ans, elle découvre le Modern Jazz qui l'accompagnera pendant 14&nbsp;ans. À partir de 2016, elle élargit son horizon avec des danses de couple, tout en continuant d'explorer sa danse solo avec le Street Jazz, le Contemporain, le Cabaret et la Pole Danse. En 2018, elle tombe sous le charme des danses swing et, plus récemment, a débuté sa nouvelle histoire d'amour avec le blues.</p>
+            </div>
+          </article>
+
+          <article class="mb-prof mb-prof--mystery" aria-labelledby="mb-prof-3">
+            <div class="mb-prof-frame" data-reveal>
+              <img src="images/moonrise-prof-mystere.webp" alt="Silhouette du troisième couple de professeurs, encore secret" width="824" height="1024" loading="lazy">
+              <span class="mb-prof-question" aria-hidden="true">?</span>
+            </div>
+            <div class="mb-prof-copy" data-reveal>
+              <p class="mb-prof-rank">Troisième couple</p>
+              <h3 id="mb-prof-3">Couple mystère</h3>
+              <p>Cette silhouette vous dit peut-être quelque chose… Le troisième couple de professeurs sera dévoilé très bientôt. Gardez les yeux levés vers le ciel&nbsp;!</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <section class="mb-classes" aria-labelledby="mb-classes-title">
       <div class="mb-shell">
         <div class="mb-section-head">
@@ -189,8 +259,8 @@
               <circle class="mb-phase-lit" cx="50" cy="50" r="36" mask="url(#mb-mask-crescent)"></circle>
             </svg>
             <p class="mb-phase-name">Premier croissant</p>
-            <h3>Débutant</h3>
-            <p>Pour découvrir le blues ou poser des bases solides&nbsp;: la marche, la connexion avec votre partenaire, l'écoute de la musique.</p>
+            <h3>Niveau 1</h3>
+            <p>Je fais du blues depuis quelques mois, voire une année. Je connais déjà les fondamentaux du ballroom et je n'hésite pas à danser le blues à toutes les occasions en soirée swing.</p>
           </li>
           <li class="mb-phase" data-reveal>
             <svg class="mb-phase-moon" viewBox="0 0 100 100" aria-hidden="true">
@@ -201,8 +271,8 @@
               <circle class="mb-phase-lit" cx="50" cy="50" r="36" mask="url(#mb-mask-half)"></circle>
             </svg>
             <p class="mb-phase-name">Premier quartier</p>
-            <h3>Intermédiaire</h3>
-            <p>Pour enrichir votre vocabulaire, jouer avec la musicalité et donner plus de relief à chaque danse.</p>
+            <h3>Niveau 2</h3>
+            <p>Je danse le blues depuis au moins deux ans. Je suis à l'aise avec le ballroom et j'ai déjà participé à des soirées 100&nbsp;% blues. Je maîtrise les éléments fondamentaux de connexion et de musicalité, ainsi que, déjà, un certain répertoire technique.</p>
           </li>
           <li class="mb-phase mb-phase--full" data-reveal>
             <svg class="mb-phase-moon" viewBox="0 0 100 100" aria-hidden="true">
@@ -210,15 +280,10 @@
               <circle class="mb-phase-lit" cx="50" cy="50" r="36"></circle>
             </svg>
             <p class="mb-phase-name">Pleine lune</p>
-            <h3>Avancé</h3>
-            <p>Pour les danseurs confirmés qui veulent explorer les styles, affiner leur technique et pousser l'improvisation plus loin.</p>
+            <h3>Niveau 3</h3>
+            <p>Le niveau le plus avancé du festival, réservé aux danseurs qui souhaitent se challenger. Indisponible à l'inscription&nbsp;: pour celui-ci, il faudra s'inscrire en niveau 2 et passer l'audition du samedi&nbsp;!</p>
           </li>
         </ol>
-
-        <p class="mb-teachers" data-reveal>
-          <svg class="mb-inline-star" aria-hidden="true"><use href="#mb-star"></use></svg>
-          Les noms des professeurs seront dévoilés très bientôt.
-        </p>
       </div>
     </section>
 
@@ -267,7 +332,7 @@
         <div class="mb-soon-copy">
           <p class="mb-kicker" data-reveal>À suivre</p>
           <h2 class="mb-h2" id="mb-soon-title" data-reveal>La suite des infos arrive très prochainement…</h2>
-          <p class="mb-section-intro" data-reveal>Professeurs, programme, billetterie&nbsp;: tout se dévoilera bientôt, étoile après étoile. Gardez les yeux levés vers le ciel… et sur nos réseaux.</p>
+          <p class="mb-section-intro" data-reveal>Le couple mystère, le programme, la billetterie&nbsp;: tout se dévoilera bientôt, étoile après étoile. Gardez les yeux levés vers le ciel… et sur nos réseaux.</p>
           <p class="mb-countdown" data-countdown data-reveal hidden>Plus que <strong data-countdown-value>…</strong> <span data-countdown-unit>nuits</span> avant le lever de la lune.</p>
           <div class="mb-actions" data-reveal>
             <a class="mb-button mb-button--moon" href="https://www.instagram.com/swingshine.larochelle" target="_blank" rel="noopener noreferrer">Suivre sur Instagram</a>
@@ -279,6 +344,32 @@
           <img src="images/moonrise-blues-affiche.jpg" alt="Affiche Moonrise Blues dance festival : 27-28 février à La Rochelle, workshops, live band, shows, by SwingShine" width="819" height="1024" loading="lazy">
           <figcaption>L'affiche officielle</figcaption>
         </figure>
+      </div>
+    </section>
+
+    <section class="mb-venue" id="lieu" aria-labelledby="mb-venue-title">
+      <div class="mb-shell mb-venue-inner">
+        <div class="mb-venue-copy">
+          <p class="mb-kicker" data-reveal>Le lieu</p>
+          <h2 class="mb-h2" id="mb-venue-title" data-reveal>Rendez-vous à La&nbsp;Jarne</h2>
+          <p class="mb-section-intro" data-reveal>Le festival se tient aux portes de La&nbsp;Rochelle, dans la salle polyvalente Mélusine.</p>
+          <address class="mb-venue-address" data-reveal>
+            <strong>Salle polyvalente Mélusine</strong>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Salle+polyvalente+M%C3%A9lusine%2C+17220+La+Jarne" target="_blank" rel="noopener noreferrer">31 rue des Quatre Chevaliers<br>17220 La Jarne</a>
+          </address>
+          <div class="mb-actions" data-reveal>
+            <a class="mb-button mb-button--moon" href="https://www.google.com/maps/dir/?api=1&amp;destination=Salle+polyvalente+M%C3%A9lusine%2C+17220+La+Jarne" target="_blank" rel="noopener noreferrer">Itinéraire</a>
+          </div>
+        </div>
+        <div class="mb-venue-map" data-reveal>
+          <iframe
+            title="Emplacement de la salle polyvalente Mélusine à La Jarne"
+            src="https://www.google.com/maps?q=Salle+polyvalente+M%C3%A9lusine%2C+17220+La+Jarne&amp;z=15&amp;output=embed"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen>
+          </iframe>
+        </div>
       </div>
     </section>
   </main>
