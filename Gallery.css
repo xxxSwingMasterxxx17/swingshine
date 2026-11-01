@@ -1,52 +1,121 @@
-.u-section-1 .u-sheet-1 {
-  min-height: 1021px;
+html,
+body {
+  margin: 0;
+  height: 100%;
+  background: #090920;
 }
 
-.u-section-1 .u-image-1 {
-  width: 862px;
-  height: 986px;
-  margin: 0 auto 10px;
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  font-family: "Open Sans", "Helvetica Neue", Arial, sans-serif;
 }
 
-@media (max-width: 1199px) {
-  .u-section-1 .u-sheet-1 {
-    min-height: 1325px;
-  }
-
-  .u-section-1 .u-image-1 {
-    inset: auto;
-  }
+.hmc-stage {
+  position: relative;
+  width: min(100vw, calc(100vh * 9 / 16));
+  width: min(100vw, calc(100dvh * 9 / 16));
+  aspect-ratio: 9 / 16;
+  container-type: inline-size;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
-@media (max-width: 991px) {
-  .u-section-1 .u-sheet-1 {
-    min-height: 1015px;
-  }
-
-  .u-section-1 .u-image-1 {
-    width: 720px;
-    height: 824px;
-  }
+.hmc-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
-@media (max-width: 767px) {
-  .u-section-1 .u-sheet-1 {
-    min-height: 761px;
-  }
-
-  .u-section-1 .u-image-1 {
-    width: 540px;
-    height: 618px;
-  }
+.hmc-title {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
 }
 
-@media (max-width: 575px) {
-  .u-section-1 .u-sheet-1 {
-    min-height: 479px;
-  }
+.hmc-sound {
+  position: absolute;
+  top: 2.4%;
+  right: 3.5%;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  padding: 0.55em 0.95em;
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  border-radius: 999px;
+  background: rgba(9, 9, 32, 0.75);
+  color: #fff;
+  font: 600 13px/1 "Open Sans", "Helvetica Neue", Arial, sans-serif;
+  font-size: clamp(11px, 3.4cqw, 18px);
+  cursor: pointer;
+  animation: hmc-nudge 1.6s ease-in-out infinite;
+}
 
-  .u-section-1 .u-image-1 {
-    width: 340px;
-    height: 389px;
+.hmc-sound:focus-visible {
+  outline: 3px solid #ffb0e4;
+  outline-offset: 3px;
+}
+
+.hmc-sound svg {
+  width: 1.3em;
+  height: 1.3em;
+  flex: none;
+}
+
+.hmc-sound .hmc-on,
+.hmc-sound.is-on .hmc-off {
+  display: none;
+}
+
+.hmc-sound.is-on .hmc-on {
+  display: block;
+}
+
+.hmc-sound.is-on {
+  animation: none;
+  padding: 0.55em;
+}
+
+.hmc-sound.is-on [data-sound-label] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.hmc-invite {
+  position: absolute;
+  left: 6%;
+  right: 6%;
+  bottom: 2.2%;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 12px;
+  font-size: clamp(10px, 3cqw, 16px);
+  line-height: 1.4;
+  text-align: center;
+  cursor: auto;
+}
+
+.hmc-invite a {
+  color: #ffb0e4;
+  font-weight: 600;
+}
+
+@keyframes hmc-nudge {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hmc-sound {
+    animation: none;
   }
 }
