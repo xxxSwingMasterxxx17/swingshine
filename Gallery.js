@@ -15,7 +15,7 @@
   var SPAWN_EVERY = 0.4;
   var ATTRACT = 120;
   var MAX_TIER = 7;
-  var LOOP_AFTER = 9;
+  var REVEAL_AFTER = 2;
   var ASSET_V = '20261101-1';
   var BG = '#090920';
   var FONT = '"Open Sans", "Helvetica Neue", Arial, sans-serif';
@@ -58,8 +58,7 @@
       bump: -1,
       unlocked: unlocked,
       spawnIn: 0,
-      finaleAt: -1,
-      done: false
+      finaleAt: -1
     };
 
     function fill() {
@@ -293,7 +292,6 @@
       s.rings = s.rings.filter(function (r) { return s.t - r.t0 < r.dur; });
       s.banners = s.banners.filter(function (b) { return s.t - b.t0 < 1.7; });
       s.shown += (s.score - s.shown) * Math.min(1, dt * 5);
-      if (s.finaleAt >= 0 && s.t - s.finaleAt > LOOP_AFTER) s.done = true;
     }
 
     s.update = function (dt) {
@@ -594,38 +592,38 @@
     resize();
     window.addEventListener('resize', resize);
 
+    var reveal = document.getElementById('hmc-reveal');
     var sim = createSim();
-    var fadeOut = -1;
     var fadeIn = 0;
     var last = null;
+    var stopAt = -1;
+
+    function showReveal(ts) {
+      stopAt = ts + 1500;
+      if (!reveal) return;
+      reveal.hidden = false;
+      void reveal.offsetWidth;
+      reveal.classList.add('is-visible');
+    }
 
     function frame(ts) {
       var dt = last === null ? 0 : Math.min((ts - last) / 1000, 1 / 20);
       last = ts;
       sim.update(dt);
       sim.events.splice(0).forEach(function (e) { audio.play(e.tier); });
-
-      if (sim.done && fadeOut < 0) fadeOut = 0;
-      if (fadeOut >= 0) {
-        fadeOut += dt;
-        if (fadeOut >= 1) {
-          sim = createSim();
-          fadeOut = -1;
-          fadeIn = 0;
-        }
-      }
+      if (stopAt < 0 && sim.finaleAt >= 0 && sim.t - sim.finaleAt >= REVEAL_AFTER) showReveal(ts);
       fadeIn += dt;
 
       ctx.setTransform(scale, 0, 0, scale, 0, 0);
       render(ctx, sim, imgs);
-      var dark = fadeOut >= 0 ? fadeOut : Math.max(0, 1 - fadeIn / 0.8);
+      var dark = Math.max(0, 1 - fadeIn / 0.8);
       if (dark > 0) {
         ctx.globalAlpha = dark;
         ctx.fillStyle = BG;
         ctx.fillRect(0, 0, W, H);
         ctx.globalAlpha = 1;
       }
-      requestAnimationFrame(frame);
+      if (stopAt < 0 || ts < stopAt) requestAnimationFrame(frame);
     }
     requestAnimationFrame(frame);
   }
