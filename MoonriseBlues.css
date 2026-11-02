@@ -429,13 +429,15 @@
 .mb-scroll-cue {
   position: absolute;
   z-index: 4;
+  right: 0;
   bottom: 18px;
-  left: 50%;
+  left: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  translate: -50% 0;
+  width: fit-content;
+  margin: 0 auto;
   color: var(--mb-mist) !important;
   font-family: var(--mb-text);
   font-size: 0.7rem;
@@ -471,6 +473,33 @@
   position: relative;
   padding: clamp(96px, 13vw, 170px) 0 0;
   background: linear-gradient(180deg, #2d355a 0%, var(--mb-midnight) 100%);
+}
+
+/* Pulled up into the intro's top padding so the section keeps its spacing
+   whether or not the announcement is there. */
+.mb-signup {
+  width: fit-content;
+  margin: calc(clamp(0px, 3vw, 40px) - clamp(96px, 13vw, 170px)) auto clamp(64px, 7vw, 96px) !important;
+  padding: 0.75em 1.5em;
+  border: 1px solid rgba(226, 220, 147, 0.45);
+  border-radius: 999px;
+  background: rgba(30, 36, 66, 0.4);
+  box-shadow: 0 0 28px rgba(226, 220, 147, 0.12);
+  color: var(--mb-moon-bright);
+  font-family: var(--mb-text);
+  font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1.35;
+  text-align: center;
+  text-wrap: balance;
+  animation: mb-rise-in 1.6s var(--mb-ease) 2.2s both;
+}
+
+.mb-signup::before {
+  margin-right: 0.6em;
+  content: "✦" / "";
+  letter-spacing: 0;
 }
 
 .mb-page .mb-intro-title {
