@@ -126,6 +126,70 @@
     update();
   }
 
+  // Left rail: highlights the section being read, hidden over the hero and footer.
+  function setupToc() {
+    var toc = document.querySelector('[data-toc]');
+    if (!toc) return;
+
+    var hero = document.querySelector('[data-hero]');
+    var page = document.querySelector('.mb-page');
+    var links = Array.prototype.slice.call(toc.querySelectorAll('.mb-toc-link'));
+    var targets = links.map(function (link) {
+      return document.getElementById(link.getAttribute('href').slice(1));
+    });
+    var current = null;
+    var ticking = false;
+
+    function update() {
+      ticking = false;
+      var viewport = window.innerHeight;
+      var active = -1;
+      targets.forEach(function (target, index) {
+        if (target && target.getBoundingClientRect().top <= viewport * 0.35) active = index;
+      });
+      var scrollBottom = (window.pageYOffset || document.documentElement.scrollTop) + viewport;
+      if (scrollBottom >= document.documentElement.scrollHeight - 2) active = targets.length - 1;
+
+      if (active !== current) {
+        current = active;
+        links.forEach(function (link, index) {
+          link.classList.toggle('is-active', index === active);
+          link.classList.toggle('is-passed', index < active);
+          if (index === active) {
+            link.setAttribute('aria-current', 'location');
+          } else {
+            link.removeAttribute('aria-current');
+          }
+        });
+        toc.style.setProperty('--toc-index', Math.max(active, 0));
+      }
+
+      var heroBottom = hero ? hero.getBoundingClientRect().bottom : 0;
+      var pageBottom = page ? page.getBoundingClientRect().bottom : Infinity;
+      var tocBottom = (viewport + toc.offsetHeight) / 2;
+      toc.classList.toggle('is-visible', heroBottom < viewport * 0.5 && pageBottom > tocBottom + 24);
+    }
+
+    function requestUpdate() {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(update);
+    }
+
+    toc.addEventListener('click', function (event) {
+      var link = event.target.closest('.mb-toc-link');
+      var target = link && document.getElementById(link.getAttribute('href').slice(1));
+      if (!target) return;
+      event.preventDefault();
+      target.scrollIntoView({ behavior: reducedMotion.matches ? 'auto' : 'smooth', block: 'start' });
+      history.replaceState(null, '', link.getAttribute('href'));
+    });
+
+    window.addEventListener('scroll', requestUpdate, { passive: true });
+    window.addEventListener('resize', requestUpdate);
+    update();
+  }
+
   function between(min, max) {
     return min + Math.random() * (max - min);
   }
@@ -351,4 +415,5 @@
   setupReveal();
   setupCountdown();
   setupScrollEffects();
+  setupToc();
 }());

@@ -478,8 +478,17 @@
 /* Pulled up into the intro's top padding so the section keeps its spacing
    whether or not the announcement is there. */
 .mb-signup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  margin: calc(clamp(0px, 3vw, 40px) - clamp(96px, 13vw, 170px)) auto clamp(64px, 7vw, 96px);
+  animation: mb-rise-in 1.6s var(--mb-ease) 2.2s both;
+}
+
+.mb-signup-text {
   width: fit-content;
-  margin: calc(clamp(0px, 3vw, 40px) - clamp(96px, 13vw, 170px)) auto clamp(64px, 7vw, 96px) !important;
+  margin: 0 !important;
   padding: 0.75em 1.5em;
   border: 1px solid rgba(226, 220, 147, 0.45);
   border-radius: 999px;
@@ -493,10 +502,9 @@
   line-height: 1.35;
   text-align: center;
   text-wrap: balance;
-  animation: mb-rise-in 1.6s var(--mb-ease) 2.2s both;
 }
 
-.mb-signup::before {
+.mb-signup-text::before {
   margin-right: 0.6em;
   content: "✦" / "";
   letter-spacing: 0;
@@ -999,6 +1007,58 @@
   animation: mb-pulse 2s ease-out infinite;
 }
 
+.mb-artist {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  align-items: center;
+  gap: clamp(40px, 6vw, 96px);
+  margin-top: clamp(80px, 9vw, 120px);
+}
+
+/* The cut-out is cropped at the left and bottom, so those edges sit on the
+   frame; only the top is left open for him to step out of it. */
+.mb-artist-frame {
+  position: relative;
+  aspect-ratio: 1584 / 1175;
+  border: 1px solid rgba(202, 205, 179, 0.16);
+  border-radius: 28px;
+  background:
+    radial-gradient(42% 52% at 34% 34%, rgba(226, 220, 147, 0.3) 0%, rgba(94, 125, 136, 0.16) 55%, transparent 100%),
+    linear-gradient(170deg, rgba(67, 87, 121, 0.6) 0%, rgba(30, 36, 66, 0.5) 80%);
+}
+
+.mb-artist-frame img {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  clip-path: inset(-20% 0 0 0 round 28px);
+  filter: drop-shadow(0 18px 30px rgba(8, 10, 25, 0.45));
+}
+
+.mb-page .mb-artist h3 {
+  margin: 6px 0 22px;
+  color: var(--mb-white);
+  font-family: var(--mb-display);
+  font-size: clamp(2.3rem, 4.2vw, 3.6rem);
+  font-weight: 400;
+  line-height: 1.08;
+  -webkit-text-stroke: 0.012em currentColor;
+}
+
+.mb-artist-copy p:not(.mb-prof-rank) {
+  max-width: 62ch;
+  color: var(--mb-mist);
+  font-size: 1.06rem;
+  font-weight: 300;
+  line-height: 1.7;
+}
+
+.mb-artist-copy p + p {
+  margin-top: 16px;
+}
+
 /* ---------- Coming soon ---------- */
 
 .mb-soon {
@@ -1007,11 +1067,158 @@
   background: linear-gradient(180deg, var(--mb-abyss) 0%, #2a3256 100%);
 }
 
+.mb-planning-cta {
+  margin-bottom: clamp(56px, 7vw, 88px);
+}
+
+.mb-page a.mb-planning-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: clamp(20px, 3vw, 36px);
+  padding: clamp(20px, 2.6vw, 28px) clamp(20px, 2.6vw, 28px) clamp(20px, 2.6vw, 28px) clamp(26px, 3.4vw, 42px);
+  overflow: hidden;
+  border: 1px solid rgba(226, 220, 147, 0.5);
+  border-radius: 999px;
+  background:
+    radial-gradient(60% 200% at 0% 50%, rgba(226, 220, 147, 0.16), transparent 70%),
+    linear-gradient(100deg, rgba(67, 87, 121, 0.6) 0%, rgba(40, 48, 82, 0.4) 100%);
+  box-shadow: 0 0 40px rgba(226, 220, 147, 0.1);
+  color: var(--mb-white);
+  text-decoration: none;
+  isolation: isolate;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s var(--mb-ease);
+}
+
+/* A slow band of moonlight sweeping across the button. */
+.mb-planning-link::after {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  content: "";
+  pointer-events: none;
+  background: linear-gradient(105deg, transparent 35%, rgba(226, 220, 147, 0.14) 50%, transparent 65%);
+  translate: -100% 0;
+  animation: mb-sweep 7s ease-in-out 1s infinite;
+}
+
+.mb-page a.mb-planning-link:hover,
+.mb-page a.mb-planning-link:focus-visible {
+  border-color: var(--mb-moon-bright);
+  box-shadow: 0 0 50px rgba(226, 220, 147, 0.3);
+  transform: translateY(-3px);
+}
+
+.mb-planning-phases {
+  display: flex;
+  flex-shrink: 0;
+  gap: 6px;
+}
+
+.mb-planning-phases svg {
+  width: clamp(30px, 3.2vw, 40px);
+  height: clamp(30px, 3.2vw, 40px);
+  overflow: visible;
+  filter: drop-shadow(0 0 8px rgba(226, 220, 147, 0.45));
+  transition: filter 0.4s ease;
+}
+
+.mb-planning-link:hover .mb-planning-phases svg {
+  filter: drop-shadow(0 0 16px rgba(226, 220, 147, 0.8));
+}
+
+.mb-planning-text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.mb-planning-kicker {
+  color: var(--mb-moon);
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+
+.mb-planning-label {
+  font-family: var(--mb-display);
+  font-size: clamp(1.5rem, 2.8vw, 2.3rem);
+  line-height: 1.1;
+  -webkit-text-stroke: 0.012em currentColor;
+}
+
+.mb-planning-arrow {
+  display: grid;
+  flex-shrink: 0;
+  width: clamp(48px, 5vw, 60px);
+  aspect-ratio: 1;
+  place-items: center;
+  border-radius: 50%;
+  background: linear-gradient(100deg, var(--mb-sage) 0%, var(--mb-moon-bright) 100%);
+  color: var(--mb-abyss);
+  font-size: 1.4rem;
+  transition: box-shadow 0.4s ease, transform 0.4s var(--mb-ease);
+}
+
+.mb-planning-link:hover .mb-planning-arrow {
+  box-shadow: 0 0 30px rgba(226, 220, 147, 0.6);
+  transform: translateX(4px);
+}
+
 .mb-soon-inner {
   display: grid;
   grid-template-columns: minmax(0, 1.25fr) minmax(240px, 0.75fr);
   gap: clamp(48px, 7vw, 96px);
   align-items: center;
+}
+
+.mb-prices {
+  max-width: 40rem;
+  margin-top: 34px !important;
+  border-top: 1px solid rgba(202, 205, 179, 0.2);
+}
+
+.mb-price {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px 28px;
+  align-items: baseline;
+  padding: 24px 0;
+  border-bottom: 1px solid rgba(202, 205, 179, 0.2);
+}
+
+.mb-page .mb-price h3 {
+  color: var(--mb-white);
+  font-family: var(--mb-display);
+  font-size: clamp(1.6rem, 2.6vw, 2.1rem);
+  font-weight: 400;
+  line-height: 1.15;
+  -webkit-text-stroke: 0.012em currentColor;
+}
+
+.mb-price-amount {
+  grid-row: 1 / span 2;
+  grid-column: 2;
+  align-self: center;
+  color: var(--mb-moon-bright);
+  background: linear-gradient(100deg, var(--mb-sage) 0%, var(--mb-moon-bright) 70%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: var(--mb-display);
+  font-size: clamp(2.6rem, 4.6vw, 3.6rem);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.mb-price-includes {
+  color: var(--mb-mist);
+  font-size: 1.05rem;
+  font-weight: 300;
+  line-height: 1.55;
 }
 
 .mb-countdown {
@@ -1237,6 +1444,194 @@
   stroke-width: 1;
 }
 
+/* ---------- Table of contents (left rail) ---------- */
+
+/* Lives in the margin left of .mb-shell, so it needs a wide viewport:
+   markers only from 1260px, labels always shown from 1520px. */
+.mb-toc {
+  --toc-row: 34px;
+  position: fixed;
+  z-index: 55;
+  top: 50%;
+  left: 24px;
+  display: none;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  translate: -10px -50%;
+  transition: opacity 0.5s ease, translate 0.5s var(--mb-ease), visibility 0s linear 0.5s;
+}
+
+.mb-toc.is-visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  translate: 0 -50%;
+  transition-delay: 0s;
+}
+
+.mb-toc::before {
+  position: absolute;
+  inset: -46px -22px -12px -14px;
+  z-index: -1;
+  content: "";
+  border: 1px solid rgba(202, 205, 179, 0.12);
+  border-radius: 20px;
+  background: rgba(30, 36, 66, 0.86);
+  box-shadow: 0 20px 50px rgba(8, 10, 25, 0.45);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.mb-toc-title {
+  position: absolute;
+  bottom: 100%;
+  left: 30px;
+  margin: 0 0 12px;
+  color: var(--mb-moon);
+  font-family: var(--mb-text);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.mb-toc-list {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.mb-toc-list::before,
+.mb-toc-list::after {
+  position: absolute;
+  top: calc(var(--toc-row) / 2);
+  left: 7.5px;
+  width: 1px;
+  content: "";
+}
+
+.mb-toc-list::before {
+  bottom: calc(var(--toc-row) / 2);
+  background: rgba(202, 205, 179, 0.2);
+}
+
+.mb-toc-list::after {
+  height: calc(var(--toc-index, 0) * var(--toc-row));
+  background: linear-gradient(var(--mb-moon), var(--mb-moon-bright));
+  transition: height 0.6s var(--mb-ease);
+}
+
+.mb-body .mb-toc-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  height: var(--toc-row);
+  color: rgba(202, 205, 179, 0.5);
+  font-family: var(--mb-text);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-decoration: none;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: color 0.3s ease;
+}
+
+.mb-toc-mark {
+  position: relative;
+  z-index: 1;
+  flex: none;
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+  scale: 0.55;
+  transition: scale 0.4s var(--mb-ease), filter 0.4s ease;
+}
+
+.mb-toc-link span {
+  position: absolute;
+  left: 30px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.mb-body .mb-toc-link.is-passed {
+  color: rgba(202, 205, 179, 0.8);
+}
+
+.mb-toc-link.is-passed .mb-toc-mark {
+  fill: var(--mb-moon);
+}
+
+.mb-body .mb-toc-link.is-active {
+  color: var(--mb-moon-bright);
+}
+
+.mb-toc-link.is-active .mb-toc-mark {
+  scale: 1;
+  filter: drop-shadow(0 0 5px rgba(226, 220, 147, 0.75));
+}
+
+.mb-body .mb-toc-link:hover,
+.mb-body .mb-toc-link:focus-visible {
+  color: var(--mb-white);
+}
+
+.mb-toc-link:hover .mb-toc-mark {
+  scale: 0.8;
+}
+
+.mb-toc-link.is-active:hover .mb-toc-mark {
+  scale: 1;
+}
+
+.mb-toc:hover::before,
+.mb-toc:has(:focus-visible)::before,
+.mb-toc:hover .mb-toc-title,
+.mb-toc:has(:focus-visible) .mb-toc-title {
+  opacity: 1;
+}
+
+.mb-toc:hover .mb-toc-link span,
+.mb-toc:has(:focus-visible) .mb-toc-link span {
+  position: static;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (min-width: 1260px) {
+  .mb-toc {
+    display: block;
+  }
+}
+
+@media (min-width: 1520px) {
+  .mb-toc::before,
+  .mb-toc:hover::before,
+  .mb-toc:has(:focus-visible)::before {
+    opacity: 0;
+  }
+
+  .mb-toc-title,
+  .mb-toc-link span {
+    opacity: 1;
+  }
+
+  .mb-toc-link span {
+    position: static;
+    pointer-events: auto;
+  }
+}
+
 /* ---------- Footer on this page ---------- */
 
 .mb-body .u-header {
@@ -1319,6 +1714,11 @@
   50% { opacity: 0.55; background-position: 0 4px; }
 }
 
+@keyframes mb-sweep {
+  0% { translate: -100% 0; }
+  40%, 100% { translate: 100% 0; }
+}
+
 @keyframes mb-pulse {
   0% { box-shadow: 0 0 0 0 rgba(226, 220, 147, 0.6); }
   100% { box-shadow: 0 0 0 10px rgba(226, 220, 147, 0); }
@@ -1334,9 +1734,19 @@
   }
 
   .mb-skyline,
+  .mb-artist,
   .mb-soon-inner,
   .mb-venue-inner {
     grid-template-columns: 1fr;
+  }
+
+  .mb-artist {
+    gap: 40px;
+  }
+
+  .mb-artist-frame {
+    justify-self: center;
+    width: min(100%, 560px);
   }
 
   .mb-venue-map {
@@ -1445,6 +1855,15 @@
     margin-top: 14%;
   }
 
+  .mb-price-amount {
+    grid-row: 1;
+    font-size: 2.4rem;
+  }
+
+  .mb-price-includes {
+    grid-column: 1 / -1;
+  }
+
   .mb-actions {
     flex-direction: column;
     align-items: stretch;
@@ -1452,6 +1871,28 @@
 
   .mb-page a.mb-button {
     justify-content: center;
+  }
+
+  .mb-page a.mb-planning-link {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas: "phases arrow" "text text";
+    gap: 14px;
+    padding: 20px 20px 24px 24px;
+    border-radius: 28px;
+  }
+
+  .mb-planning-phases {
+    grid-area: phases;
+    align-self: center;
+  }
+
+  .mb-planning-text {
+    grid-area: text;
+  }
+
+  .mb-planning-arrow {
+    grid-area: arrow;
   }
 
   .mb-moon-progress {
@@ -1463,7 +1904,11 @@
 @media (prefers-reduced-motion: reduce) {
   .mb-page *,
   .mb-page *::before,
-  .mb-page *::after {
+  .mb-page *::after,
+  .mb-toc,
+  .mb-toc *,
+  .mb-toc *::before,
+  .mb-toc *::after {
     animation: none !important;
     transition: none !important;
   }
